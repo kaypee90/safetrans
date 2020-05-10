@@ -33,36 +33,36 @@ func main() {
 	}
 
 	if *serverFlag {
-		mux := http.NewServeMux()
-
-		hub := newHub()
-		go hub.run()
-		mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-			log.Println("New Request!")
-			serveWs(w, r)
-		})
-		mux.HandleFunc("/", HomeHandler)
-		mux.HandleFunc("/chat", ChatHandler)
-
-		n := negroni.Classic() // Includes some default middlewares
-		n.UseHandler(mux)
-
-		message := "Server running on port: "
-		result := fmt.Sprintf("%s%s", message, *addr) 
-		fmt.Println(result)
-
-		port := os.Getenv("PORT")
-		if port == "" {
-			port = *addr
-		}
 		
-
-		http.ListenAndServe(":" + port, n)
-	
+		log.Println("Safe Trans Application - Server")
 	}
 	
-	log.Println("Safe Trans Application - Beta")
-    
+	mux := http.NewServeMux()
+
+	hub := newHub()
+	go hub.run()
+	mux.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("New Request!")
+		serveWs(w, r)
+	})
+	mux.HandleFunc("/", HomeHandler)
+	mux.HandleFunc("/chat", ChatHandler)
+
+	n := negroni.Classic() // Includes some default middlewares
+	n.UseHandler(mux)
+
+	message := "Server running on port: "
+	result := fmt.Sprintf("%s%s", message, *addr) 
+	fmt.Println(result)
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = *addr
+	}
+	
+
+	http.ListenAndServe(":" + port, n)
+	
 }
 
 
