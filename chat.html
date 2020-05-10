@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Chat | Safe Trans</title>
+<script type="text/javascript">
+function endSession(){var e=document.getElementById("room").value+"x(:-ex-q)-q/:(//)";document.getElementById("msg").value=e,document.getElementById("btnSend").click(),window.location.replace(document.location.protocol+"//"+document.location.host+"/")}window.onload=function(){var e,o,n=document.getElementById("msg"),t=document.getElementById("log"),c=document.getElementById("room");function l(e){var o=t.scrollTop>t.scrollHeight-t.clientHeight-1;t.appendChild(e),o&&(t.scrollTop=t.scrollHeight-t.clientHeight)}document.getElementById("form").onsubmit=function(){return e&&n.value&&(e.send(n.value),n.value=""),!1},window.WebSocket?((e=new WebSocket("ws://"+document.location.host+"/ws?room="+c.value)).onclose=function(e){var o=document.createElement("div");o.innerHTML="<b>Connection closed.</b>",l(o)},e.onmessage=function(e){for(var o=e.data.split("\n"),n=0;n<o.length;n++){var t=document.createElement("div");o[n]===c.value+"x(:-ex-q)-q/:(//)"&&window.location.replace(document.location.protocol+"//"+document.location.host+"/"),t.innerText="=> "+o[n],l(t)}}):((o=document.createElement("div")).innerHTML="<b>Your browser does not support WebSockets.</b>",l(o))};
+</script>
+<style type="text/css">
+html {
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color:red;
+}
+
+#log {
+    background: white;
+    margin: 0;
+    padding: 0.5em 0.5em 0.5em 0.5em;
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    right: 0.5em;
+    bottom: 7em;
+    overflow: auto;
+    color: #000;
+}
+
+#form {
+    padding: 0 0.5em 0 0.5em;
+    margin: 0;
+    position: absolute;
+    bottom: 1em;
+    left: 0px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.endsession{
+    background-color: red;
+    color: white;
+}
+
+</style>
+</head>
+<body>
+<div id="log"></div>
+<form id="form">
+    <br>
+    <p>Your Private Id: {{.Room}}  <input class="endsession" type="button" value="X End Session" onclick="endSession()"/></p>
+   
+    <input type="hidden" id="room" value="{{.Room}}" />
+    <input type="text" id="msg" size="64" autofocus placeholder="Type your message" />
+    <input type="submit" value="Send" id="btnSend" />
+</form>
+</body>
+</html>
