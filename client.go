@@ -104,9 +104,6 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	}
 	roomId := strings.TrimSpace(keys[0])
 
-	log.Println("Connected Client Room Id:")
-	log.Println(roomId)
-
     if err != nil {
         log.Println(err)
         return
