@@ -5,6 +5,7 @@ import (
 	"log"
 	"flag"
 	"fmt"
+	"strings"
 	"net/http"
 	"html/template"
 
@@ -82,7 +83,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request){
 func ChatHandler(w http.ResponseWriter, r *http.Request){
 	var roomId = ""
 	if r.Method == "POST"{
-		roomId = template.HTMLEscapeString(r.FormValue("privateId"))
+		roomId = strings.TrimSpace(template.HTMLEscapeString(r.FormValue("privateId")))
 		if(roomId == ""){
 			http.Redirect(w, r, "/", http.StatusBadRequest)
 		}

@@ -4,6 +4,7 @@ import (
     "log"
     "net/http"
     "time"
+    "strings"
 
     "github.com/gorilla/websocket"
 )
@@ -101,7 +102,7 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
         log.Println("Url Param 'key' is missing")
         return
 	}
-	roomId := keys[0]
+	roomId := strings.TrimSpace(keys[0])
 
 	log.Println("Connected Client Room Id:")
 	log.Println(roomId)
